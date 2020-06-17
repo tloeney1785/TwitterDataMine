@@ -1,5 +1,6 @@
 import re
 import json
+from collections import Counter
  
 emoticons_str = r"""
     (?:
@@ -38,7 +39,9 @@ def preprocess(s, lowercase=False):
 # ['RT', '@marcobonzanini', ':', 'just', 'an', 'example', '!', ':D', 'http://example.com', '#NLP']
 
 with open("python.json", 'r') as f:
+    count_all = Counter()
     for line in f:
-        tweet = json.loads(line)
-        tokens = preprocess(tweet['text'])
-        # do_something_else(tokens)
+        try:
+            tweet = json.loads(line)
+        except ValueError:
+            pass

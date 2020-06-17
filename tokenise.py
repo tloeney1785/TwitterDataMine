@@ -3,6 +3,7 @@ import json
 import operator 
 import nltk
 from collections import Counter
+from collections import defaultdict
 from nltk.corpus import stopwords
 import string
  
@@ -41,10 +42,6 @@ def preprocess(s, lowercase=False):
     if lowercase:
         tokens = [token if emoticon_re.search(token) else token.lower() for token in tokens]
     return tokens
-#  testing
-# tweet = 'RT @marcobonzanini: just an example! :D http://example.com #NLP'
-# print(preprocess(tweet))
-# ['RT', '@marcobonzanini', ':', 'just', 'an', 'example', '!', ':D', 'http://example.com', '#NLP']
 
 with open("python.json", 'r') as f:
     count_all = Counter()
@@ -60,24 +57,12 @@ with open(fname, 'r') as f:
     for line in f:
         try:
             tweet = json.loads(line)
-            # Create a list with all the terms
-            terms_stop = [term for term in preprocess(tweet['text']) if term not in stop]
-            # Update the counter
-            count_all.update(terms_stop)
+            # Count hashtags only
+            terms_hash = [term for term in preprocess(tweet['text']) if term.startswith('#')] 
+            count_all.update(terms_hash)
+            # terms_stop = [term for term in preprocess(tweet['text']) if term not in stop]
         except ValueError:
             pass
     # Print the first 5 most frequen
     print(count_all.most_common(5))
 
-    # Count terms only once, equivalent to Document Frequency
-# terms_single = set(terms_all)
-# # Count hashtags only
-# terms_hash = [term for term in preprocess(tweet['text']) 
-#               if term.startswith('#')]
-# # Count terms only (no hashtags, no mentions)
-# terms_only = [term for term in preprocess(tweet['text']) 
-#               if term not in stop and
-#               not term.startswith(('#', '@'))] 
-#               # mind the ((double brackets))
-#               # startswith() takes a tuple (not a list) if 
-#               # we pass a list of inputs

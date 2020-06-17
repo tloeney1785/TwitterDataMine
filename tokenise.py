@@ -6,6 +6,7 @@ from collections import Counter
 from collections import defaultdict
 from nltk.corpus import stopwords
 import string
+import vincent
  
 emoticons_str = r"""
     (?:
@@ -43,14 +44,6 @@ def preprocess(s, lowercase=False):
         tokens = [token if emoticon_re.search(token) else token.lower() for token in tokens]
     return tokens
 
-with open("python.json", 'r') as f:
-    count_all = Counter()
-    for line in f:
-        try:
-            tweet = json.loads(line)
-        except ValueError:
-            pass
-
 fname = 'python.json'
 with open(fname, 'r') as f:
     count_all = Counter()
@@ -66,3 +59,8 @@ with open(fname, 'r') as f:
     # Print the first 5 most frequen
     print(count_all.most_common(5))
 
+word_freq = count_all.most_common(5)
+labels, freq = zip(*word_freq)
+data = {'data': freq, 'x': labels}
+bar = vincent.Bar(data, iter_idx='x')
+bar.to_json('term_freq.json')

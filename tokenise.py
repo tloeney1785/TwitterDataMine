@@ -1,6 +1,10 @@
 import re
 import json
+import operator 
+import nltk
 from collections import Counter
+from nltk.corpus import stopwords
+import string
  
 emoticons_str = r"""
     (?:
@@ -25,6 +29,10 @@ regex_str = [
 tokens_re = re.compile(r'('+'|'.join(regex_str)+')', re.VERBOSE | re.IGNORECASE)
 emoticon_re = re.compile(r'^'+emoticons_str+'$', re.VERBOSE | re.IGNORECASE)
  
+punctuation = list(string.punctuation)
+#filtering out certain words
+stop = stopwords.words('english') + punctuation + ['RT', 'via','“',"’",'…']
+
 def tokenize(s):
     return tokens_re.findall(s)
  
@@ -45,3 +53,31 @@ with open("python.json", 'r') as f:
             tweet = json.loads(line)
         except ValueError:
             pass
+
+fname = 'python.json'
+with open(fname, 'r') as f:
+    count_all = Counter()
+    for line in f:
+        try:
+            tweet = json.loads(line)
+            # Create a list with all the terms
+            terms_stop = [term for term in preprocess(tweet['text']) if term not in stop]
+            # Update the counter
+            count_all.update(terms_stop)
+        except ValueError:
+            pass
+    # Print the first 5 most frequen
+    print(count_all.most_common(5))
+
+    # Count terms only once, equivalent to Document Frequency
+# terms_single = set(terms_all)
+# # Count hashtags only
+# terms_hash = [term for term in preprocess(tweet['text']) 
+#               if term.startswith('#')]
+# # Count terms only (no hashtags, no mentions)
+# terms_only = [term for term in preprocess(tweet['text']) 
+#               if term not in stop and
+#               not term.startswith(('#', '@'))] 
+#               # mind the ((double brackets))
+#               # startswith() takes a tuple (not a list) if 
+#               # we pass a list of inputs

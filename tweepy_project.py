@@ -13,9 +13,9 @@ auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
 
 api = tweepy.API(auth)
- 
+
 class MyListener(StreamListener):
- 
+
     def on_data(self, data):
         try:
             with open('python.json', 'a') as f:
@@ -30,5 +30,4 @@ class MyListener(StreamListener):
         return True
  
 twitter_stream = Stream(auth, MyListener())
-twitter_stream.filter(track=['#BLM'])
-
+twitter_stream.filter(track=['#BLM'], is_async=True)

@@ -66,14 +66,13 @@ with open(fname, 'r') as f:
     for line in f:
         try:
             tweet = json.loads(line)
-            # let's focus on hashtags only at the moment
             terms_hash = [term for term in preprocess(tweet['text']) if term.startswith('#')]
-            # track when the hashtag is mentioned
             if '#BLM' in terms_hash:
                 dates_BLM.append(tweet['created_at'])
         except ValueError:
             pass
- 
+
+
 # a list of "1" to count the hashtags
 ones = [1]*len(dates_BLM)
 # the index of the series

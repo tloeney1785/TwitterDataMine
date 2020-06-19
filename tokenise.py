@@ -53,7 +53,7 @@ with open(fname, 'r') as f:
         try:
             tweet = json.loads(line)
             terms_hash = [term for term in preprocess(tweet['text']) if term.startswith('#')]
-            if '#BLM' in terms_hash:
+            if '#covid19' in terms_hash:
                 dates_BLM.append(tweet['created_at'])
         except ValueError:
             pass

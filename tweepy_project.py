@@ -44,5 +44,5 @@ class MyListener(StreamListener):
         print(status)
         return True
  
-twitter_stream = Stream(auth, listener=MyListener(time_limit=10))
+twitter_stream = Stream(auth, listener=MyListener(time_limit=60))
 twitter_stream.filter(track=['#BLM'], is_async=True)

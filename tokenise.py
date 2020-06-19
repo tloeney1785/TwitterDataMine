@@ -62,7 +62,7 @@ ones = [1]*len(dates_BLM)
 idx = pandas.DatetimeIndex(dates_BLM)
 ITAvWAL = pandas.Series(ones, index=idx)
  
-per_minute = ITAvWAL.resample('1S').sum().fillna(0)
+per_minute = ITAvWAL.resample('5S').sum().fillna(0)
 
 time_chart = vincent.Line(per_minute)
 time_chart.axis_titles(x='Time', y='Freq')

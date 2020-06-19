@@ -7,9 +7,9 @@ The program streams real time tweets from Twitter and filters for the specified 
 
 ![File Path](/images/blm.png)
 
-*Result of filtering for #BLM on June 18*
+*Result of filtering in 5 seconds interval for #BLM on June 18*
 
 ![Dialog1](/images/covid19.png)
 
-*Result of filtering for #covid19 on June 18*
+*Result of filtering in 5 seconds interval for #covid19 on June 18*
 

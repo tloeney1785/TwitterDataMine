@@ -3,7 +3,7 @@
 The program streams real time tweets from Twitter and filters for the specified *#Hashtag.* It will stream for as long as the user has specified.
 
 ### Tools
--  *Python, Visual Studio Code, Tweepy, HTML*
+-  *Python, Visual Studio Code, Tweepy, HTML, Bootstrap*
 
 ![File Path](/images/blm.png)
 

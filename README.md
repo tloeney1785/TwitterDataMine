@@ -5,7 +5,7 @@ The program streams real time tweets from Twitter and filters for the specified 
 ### Tools
 -  *Python, Visual Studio Code, Tweepy, HTML*
 
-![File Path](/images/BLM.png)
+![File Path](/images/blm.png)
 
 *Result of filtering for #BLM on June 18*
 
